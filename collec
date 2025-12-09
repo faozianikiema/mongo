@@ -1,0 +1,20 @@
+// liste des produits :
+db["produit"].find()
+//compter les produits :
+db["produit"].count()
+//lister les produits en les triant par numero décroissant 
+db.produit.find().sort({ numero: -1 })
+//Le produit de libellé "Margherita" 
+db["produit"].find({ libelle: 'Margherita'})
+//produits de la catégorie "Boissons" 
+db["produit"].find({categorie:"Boissons"})
+//liste des produits, afficher caategorie, numero, libelle
+db["produit"].find({},{_id:0,categorie:1,numero:1,libelle:1})
+// idem avec en plus la taille et le tarif
+db["produit"].find({},{_id:0,categorie:1,numero:1,libelle:1,tarifs:1})
+//produits avec un tarif < 8.0 
+db["produit"].find({"tarifs.tarif":{$lt:8}} , { _id:0,numero:1,libelle:1,tarifs:1})
+//produits avec un tarif grande taille < 8.0
+db["produit"].find({"tarifs.tarif":{$lt:8},"tarifs.taille":"grande"} , { _id:0,numero:1,libelle:1,tarifs:1})
+db["produit"].find({tarifs:{$elemMatch:{tarif:{$lt:8},taille:"grande"}} }, { _id:0,numero:1,libelle:1,tarifs:1})
+//insérer un nouveau produit 
